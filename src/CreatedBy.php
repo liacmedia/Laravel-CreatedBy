@@ -98,12 +98,12 @@ trait CreatedBy
 
     public function getCreatedByForeignKeyName()
     {
-        return Str::snake($this->createdByRelationName());
+        return $this->createdByRelationName();
     }
 
     public function getUpdatedByForeignKeyName()
     {
-        return Str::snake($this->updatedByRelationName());
+        return $this->updatedByRelationName();
     }
 
     public function getCreatedByForeignKey(){
