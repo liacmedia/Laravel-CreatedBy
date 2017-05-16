@@ -47,14 +47,14 @@ trait CreatedBy
         }
 
         $user = Auth::user();
-
+        $key = (method_exists($user, 'getCreatedBy') ? $user->getCreatedBy() : $user->getKey()); 
+        
         if (!$this->isDirty($this->getUpdatedByForeignKeyName())) {
-            $this->setAttribute($this->getUpdatedByForeignKeyName(), $user->getKey());
+            $this->setAttribute($this->getUpdatedByForeignKeyName(), $key);
         }
 
         if (!$this->exists && !$this->isDirty($this->getCreatedByForeignKeyName())) {
-            $this->setAttribute($this->getCreatedByForeignKeyName(), $user->getKey());
-
+            $this->setAttribute($this->getCreatedByForeignKeyName(), $key);
         }
     }
 
