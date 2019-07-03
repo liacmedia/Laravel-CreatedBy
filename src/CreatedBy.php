@@ -42,19 +42,20 @@ trait CreatedBy
 
     public function updateCreatedBy(){
 
-        if($this->disableCreatedBy){
+        if ($this->disableCreatedBy) {
             return;
         }
 
-        $user = Auth::user();
-        $key = (method_exists($user, 'getCreatedBy') ? $user->getCreatedBy() : $user->getKey()); 
-        
-        if (!$this->isDirty($this->getUpdatedByForeignKeyName())) {
-            $this->setAttribute($this->getUpdatedByForeignKeyName(), $key);
-        }
+        if ($user = Auth::user()) {
+            $key = (method_exists($user, 'getCreatedBy') ? $user->getCreatedBy() : $user->getKey()); 
 
-        if (!$this->exists && !$this->isDirty($this->getCreatedByForeignKeyName())) {
-            $this->setAttribute($this->getCreatedByForeignKeyName(), $key);
+            if (!$this->isDirty($this->getUpdatedByForeignKeyName())) {
+                $this->setAttribute($this->getUpdatedByForeignKeyName(), $key);
+            }
+
+            if (!$this->exists && !$this->isDirty($this->getCreatedByForeignKeyName())) {
+                $this->setAttribute($this->getCreatedByForeignKeyName(), $key);
+            }
         }
     }
 
